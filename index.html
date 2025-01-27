@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+
+<html lang="sv">
+<head>
+	<meta charset="utf-8"/>
+	<title>SkidCountDown</title>
+	<link rel="stylesheet" href="style.css" media="screen and (min-width:800px)" />
+	<link href="style.css" rel="stylesheet" media="screen and (max-width:800px)" />
+</head>
+
+<body>
+	<img src="bilder/semla.webp" class="center" id="semla"></img>
+   <div>
+	   <p id="countdownTimer"></p>
+  </div>
+  <script>
+function Easter(Y) {
+	var C = Math.floor(Y / 100);
+	var N = Y - 19 * Math.floor(Y / 19);
+	var K = Math.floor((C - 17) / 25);
+	var I = C - Math.floor(C / 4) - Math.floor((C - K) / 3) + 19 * N + 15;
+	I = I - 30 * Math.floor(I / 30);
+	I = I - Math.floor(I / 28) * (1 - Math.floor(I / 28) * Math.floor(29 / (I + 1)) * Math.floor((21 - N) / 11));
+	var J = Y + Math.floor(Y / 4) + I + 2 - C + Math.floor(C / 4);
+	J = J - 7 * Math.floor(J / 7);
+	var L = I - J;
+	var M = 3 + Math.floor((L + 40) / 44);
+	var D = L + 28 - 31 * Math.floor(M / 4);
+
+	// Create and return the Date object for Easter
+	return new Date(Y, M - 1, D); // Month is zero-based
+}
+// Set the date we're counting down to
+var countDownDate = Easter(new Date().getTime().year).getTime();
+countDownDate.setDate(countDownDate.getDate() - 47); //Set to shrove tuesday
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="countdownTimer"
+  document.getElementById("countdownTimer").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text 
+  if (distance < 0) {
+	clearInterval(x);
+	document.getElementById("countdownTimer").innerHTML = "Wooo";
+  }
+}, 1000);
+</script>
+</body>
+</html>
