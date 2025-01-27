@@ -31,7 +31,7 @@ function Easter(Y) {
 	return new Date(Y, M - 1, D); // Month is zero-based
 }
 // Set the date we're counting down to
-var countDownDate = Easter(new Date().getTime().year);
+var countDownDate = Easter(new Date().getFullYear());
 countDownDate.setDate(countDownDate.getDate() - 47); //Set to shrove tuesday
 countDownDate = countDownDate.getTime();
 
